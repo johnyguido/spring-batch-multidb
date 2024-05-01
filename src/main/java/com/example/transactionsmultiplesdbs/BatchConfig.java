@@ -55,7 +55,7 @@ public class BatchConfig {
     return new JobBuilder("job", jobRepository)
             .start(step)
             .incrementer(new RunIdIncrementer())
-            .listener(metadataCleanupListener())
+            //.listener(metadataCleanupListener())
             .build();
   }
 
@@ -114,12 +114,12 @@ public class BatchConfig {
     // Executa antes da execução do job
     @Override
     public void beforeJob(JobExecution jobExecution) {
-      try {
-        System.out.println("PERIOD DE PAUSA PARA EXCLUSAO DE METADADOS " + 10000);
-        Thread.sleep(15000); // Pausa por 10 segundos (ajuste conforme necessário)
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
+//      try {
+//        System.out.println("PERIOD DE PAUSA PARA EXCLUSAO DE METADADOS " + 10000);
+//        Thread.sleep(15000); // Pausa por 10 segundos (ajuste conforme necessário)
+//      } catch (InterruptedException e) {
+//        Thread.currentThread().interrupt();
+//      }
       // Executa o script SQL para limpar as tabelas de metadados do Spring Batch
       jdbcTemplate.execute("DELETE FROM BATCH_STEP_EXECUTION_CONTEXT");
       jdbcTemplate.execute("DELETE FROM BATCH_STEP_EXECUTION");
