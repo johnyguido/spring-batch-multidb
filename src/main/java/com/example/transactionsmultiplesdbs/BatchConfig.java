@@ -12,6 +12,8 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.repeat.CompletionPolicy;
+import org.springframework.batch.repeat.policy.CompletionPolicySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -46,12 +48,6 @@ public class BatchConfig {
 
   @Bean
   public Job job(JobRepository jobRepository, Step step) {
-    try {
-      System.out.println("PERIOD DE PAUSA " + 10000);
-      Thread.sleep(10000); // Pausa por 10 segundos (ajuste conforme necessário)
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-    }
     return new JobBuilder("job", jobRepository)
             .start(step)
             .incrementer(new RunIdIncrementer())

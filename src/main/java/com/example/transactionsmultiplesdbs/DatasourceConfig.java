@@ -15,14 +15,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class DatasourceConfig {
   @Primary
   @Bean
-  @ConfigurationProperties(prefix = "spring.datasource")
+  @ConfigurationProperties(prefix = "mema.datasource")
   public DataSource springDS() {
     return DataSourceBuilder.create().build();
   }
 
 
   @Bean
-  @ConfigurationProperties(prefix = "mema.datasource")
+  @ConfigurationProperties(prefix = "spring.datasource")
   public DataSource appDS() {
     return DataSourceBuilder.create().build();
   }
